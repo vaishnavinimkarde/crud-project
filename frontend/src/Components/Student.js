@@ -7,19 +7,44 @@ function Student() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchStudents = async () => {
-        try {
-            setLoading(true);
-            const res = await axios.get('http://localhost:8081/');
-            setStudents(res.data);
-            setLoading(false);
-        } catch (err) {
-            console.error("Error fetching students:", err);
-            // setError("Could not load data");
-            setLoading(false);
-        }
-    };
+    // const fetchStudents = async () => {
+    //     try {
+    //         setLoading(true);
+    //         const res = await axios.get('http://localhost:8081/');
+    //         setStudents(res.data);
+    //         setLoading(false);
+    //     } catch (err) {
+    //         console.error("Error fetching students:", err);
+    //         // setError("Could not load data");
+    //         setLoading(false);
+    //     }
+    // };
 
+
+
+    const fetchStudents = async () => {
+    try {
+        setLoading(true);
+        const res = await axios.get('http://localhost:8081/');
+
+        console.log("API Response:", res.data);
+
+        if (Array.isArray(res.data)) {
+            setStudents(res.data);
+        } else if (Array.isArray(res.data.students)) {
+            setStudents(res.data.students);
+        } else if (Array.isArray(res.data.data)) {
+            setStudents(res.data.data);
+        } else {
+            setStudents([]);
+        }
+
+        setLoading(false);
+    } catch (err) {
+        console.error("Error fetching students:", err);
+        setLoading(false);
+    }
+};
     useEffect(() => {
         fetchStudents();
     }, []);
