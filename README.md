@@ -1,4 +1,4 @@
-# 📘 CRUD Project (Student Management System)
+# 📘 Student Management System
 
 This is a full-stack CRUD (Create, Read, Update, Delete) application built using React (Frontend) and Node.js + Express + MySQL (Backend).
 
